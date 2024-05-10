@@ -29,6 +29,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.08.12</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -38,9 +44,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-			          <groupId>org.jacoco</groupId>
-			          <artifactId>jacoco-maven-plugin</artifactId>
-			          <version>${jacoco-maven-plugin.version}</version>
+			          
 			</plugin>
 		</plugins>
 	</build>

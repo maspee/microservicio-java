@@ -11,33 +11,43 @@ jobs:
 
     steps:
       
-      - name: Clonacion de codigo
+      - name: Clonación de código
         uses: actions/checkout@v4
 
-      - name: Setup Java JDK
+      - name: Configuración JDK Java 8
         uses: actions/setup-java@v4.2.1
         with: 
             java-version: '8'
             distribution: 'temurin'
 
-      - name: Compilacion
+      - name: Compilación
         run: |
           mvn package
 
-      - name: Ejecucion de test pruebas unitarias
+      - name: Ejecución de pruebas unitarias
         run: 
           mvn package test
 
       - name: Generar informe de cobertura
-        run: mvn jacoco:report
+        run: mvn cobertura:cobertura
 
-      - name: Setup Java JDK
+      - name: Verificar cobertura
+        run: |
+          coverage=$(grep -Po '(?<=<line-rate>)[^<]+' target/site/cobertura/coverage.xml)
+          echo "Cobertura de pruebas unitarias: $coverage"
+          if (( $(echo "$coverage < 0.85" | bc -l) )); then
+            echo "La cobertura de pruebas unitarias es menor al 85%."
+            echo "Ajustando el umbral..."
+            mvn cobertura:cobertura -Dcobertura.branchRate=85
+          fi
+
+      - name: Configuración JDK Java 17
         uses: actions/setup-java@v4.2.1
         with: 
             java-version: '17'
             distribution: 'temurin'
             
-      - name: Analisis Codigo Estatico SonarCloud
+      - name: Análisis de código estático SonarCloud
         run: |
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
           -Dsonar.token=${{ secrets.SONAR_TOKEN }} \

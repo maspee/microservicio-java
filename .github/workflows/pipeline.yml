@@ -28,6 +28,9 @@ jobs:
         run: 
           mvn package test
 
+      - name: Generar informe de cobertura
+        run: mvn jacoco:report
+
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
         with: 

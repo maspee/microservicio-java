@@ -33,7 +33,7 @@ jobs:
 
       - name: Verificar cobertura
         run: |
-          coverage=$(grep -Po '(?<=<line-rate>)[^<]+' target/site/cobertura/coverage.xml)
+          coverage=$(find target -name "coverage.xml" -exec grep -Po '(?<=<line-rate>)[^<]+' {} +)
           echo "Cobertura de pruebas unitarias: $coverage"
           if (( $(echo "$coverage < 0.85" | bc -l) )); then
             echo "La cobertura de pruebas unitarias es menor al 85%."
@@ -61,4 +61,3 @@ jobs:
        # with:
           #username: "maspee"
          # password: ${{ secrets.DOCKER_PASS }}
-      

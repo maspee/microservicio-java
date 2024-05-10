@@ -23,6 +23,12 @@ jobs:
       - name: Compilacion
         run: |
           mvn package
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with: 
+            java-version: '17'
+            distribution: 'temurin'
             
       - name: Analisis Codigo Estatico SonarCloud
         run: |
@@ -32,8 +38,9 @@ jobs:
           -Dsonar.organization=maspee \
           -Dsonar.projectKey=maspee_microservicio-java
 
-      - name: Docker Login
-        uses: docker/login-action@v3.1.0
-        with:
-          username: "maspee"
-          password: ${{ secrets.DOCKER_PASS }}
+      #- name: Docker Login
+        #uses: docker/login-action@v3.1.0
+       # with:
+          #username: "maspee"
+         # password: ${{ secrets.DOCKER_PASS }}
+      

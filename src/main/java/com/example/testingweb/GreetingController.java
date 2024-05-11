@@ -10,8 +10,7 @@ public class GreetingController {
 
 	private final GreetingService service;
 
-	public GreetingController(GreetingService service) {
-		String = '1234';
+	public GreetingController(GreetingService service) {		
 		this.service = service;
 	}
 

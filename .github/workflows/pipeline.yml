@@ -78,9 +78,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
-
+      
+      - name: Clonación de código
+        uses: actions/checkout@v4
+        
       - name: Despliegue
         run: |
-          echo "despliegue"
+          kubectl apply -f deploy.yaml
   
 
